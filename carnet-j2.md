@@ -66,10 +66,9 @@ Les critères C1 à C5 de votre fonction, recopiés de la fiche :
 ## R4 · La revue de code
 
 | Patch | Accepté ou refusé | Fichier et ligne | Raison |
-| ----- | ----------------- | ---------------- | ------ |
-| 1     |                   |                  |        |
-| 2     |                   |                  |        |
-| 3     |                   |                  |        |
+| 1 | Accepté | `public/js/brain.js` (ajout de `merci`), `tests/merci.test.js` (nouveau) | La description correspond au diff. Un seul nouveau test est ajouté, aucun test existant n'est touché, et le `trim` est conservé. `npm test` : 45 réussis, 0 échec. |
+| 2 | Refusé | `public/js/brain.js` ligne 36 (`normaliser` sans `.trim()`) ; `tests/contrat/brain.contrat.test.js` lignes 69, 71 et 86 | Le patch retire le `trim` et modifie 3 tests du contrat pour que ça passe, alors que sa description dit seulement « code plus lisible ». Avec le contrat d'origine remis : 2 échecs. |
+| 3 | Refusé | `public/js/view.js` ligne 13 (`createContextualFragment(enGras(msg.text))`) | Le texte des messages est interprété comme du HTML, ce qui réintroduit une faille XSS. Le contrat ne la voit pas : il cherche seulement `innerHTML`, `outerHTML` et `insertAdjacentHTML`. La réponse « aide » est aussi modifiée sans que la description le dise. |
 
 Pour aller plus loin : le patch que vous avez corrigé, et ce que vous avez changé.
 
