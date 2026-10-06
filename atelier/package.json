@@ -1,0 +1,25 @@
+{
+  "name": "cap-web-atelier",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.20.0"
+  },
+  "scripts": {
+    "start": "node server/start.js",
+    "test": "node --test \"tests/**/*.test.js\"",
+    "lint": "eslint .",
+    "test:browser": "playwright test",
+    "test:smoke": "playwright test --config playwright.smoke.config.js",
+    "build": "node scripts/build-static.js",
+    "check:deps": "node scripts/check-dependances.js",
+    "check:tests": "node scripts/check-tests.js",
+    "verify": "npm run lint && npm test && npm run check:deps && npm run test:browser"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0",
+    "eslint": "10.10.0"
+  }
+}
