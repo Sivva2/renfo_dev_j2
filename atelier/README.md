@@ -1,5 +1,32 @@
 # Cap Web
 
-Ce README est à écrire par votre binôme au round 2, en 3 parties : à quoi sert Cap Web, comment l'installer et le lancer, et les 3 modules de `public/js` avec le rôle de chacun. La fiche est [documenter le projet](../defis/R2-ce-que-voit-l-agent.md).
+Cap Web est un petit assistant de conversation à règles, qui tourne dans le navigateur.
+Il répond à quelques mots (« salut », « aide », « test » et deux mots personnels) et il n'utilise aucune IA.
+Il sert de projet d'apprentissage : on y pratique les tests automatisés, la documentation et la revue de code.
 
-En attendant, dans ce dossier : `npm start` lance Cap Web sur http://127.0.0.1:3000 (Ctrl+C l'arrête), et `npm test` lance les tests. On ne modifie jamais `tests/contrat/`, `browser/contrat.spec.js` ni `cahier-personnel.json`.
+## Installer et lancer
+
+Il faut Node 24.20 ou plus (`node --version` pour vérifier).
+
+```bash
+cd atelier
+npm ci
+cp cahier-personnel.exemple.json cahier-personnel.json
+npm start
+```
+
+Ouvrez ensuite http://127.0.0.1:3000 dans le navigateur. Ctrl+C arrête le serveur.
+
+Pour lancer les tests :
+
+```bash
+npm test
+```
+
+`npm ci` signale une vulnérabilité dans un outil de développement : c'est sans effet, ne lancez pas `npm audit fix`.
+
+## Les 3 modules de `public/js`
+
+- `brain.js` : les règles. Il contient `validateMessage` (refuse le vide, les espaces seuls et les messages trop longs) et `replyTo` (choisit la réponse). Ce sont des fonctions pures : aucun accès à la page.
+- `view.js` : l'affichage. `renderMessages` dessine l'historique dans la page, avec du texte seulement. Il ne décide d'aucune réponse.
+- `app.js` : le câblage. Il lit le formulaire, appelle `brain.js`, met à jour l'historique (sauvegardé dans le navigateur) et demande l'affichage à `view.js`.
