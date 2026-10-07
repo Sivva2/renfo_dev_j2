@@ -75,11 +75,23 @@ majCompteur;
 charger();
 renderMessages(historique, liste);
 
-fetch("/version.json", { headers: { accept: "application/json" } })
-  .then((reponse) => (reponse.ok ? reponse.json() : null))
-  .then((donnees) => {
-    if (donnees && typeof donnees.version === "string" && versionElt) {
+async function afficherVersion() {
+  try {
+    const reponse = await fetch("/version.json", {
+      headers: { accept: "application/json" },
+    });
+    if (!reponse.ok) {
+      throw new Error(`HTTP ${reponse.status}`);
+    }
+    const donnees = await reponse.json();
+    if (typeof donnees.version === "string" && versionElt) {
       versionElt.textContent = `version ${donnees.version}`;
     }
-  })
-  .catch(() => {});
+  } catch {
+    if (versionElt) {
+      versionElt.textContent = "version indisponible";
+    }
+  }
+}
+
+afficherVersion();
