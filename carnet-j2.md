@@ -80,3 +80,9 @@ Chacun, une phrase : ce que vous savez faire ce soir et que vous ne saviez pas f
 Membre 1 : à l'aise sur le sujet
 
 Membre 2 : à l'aise sur le sujet
+
+## J3 · Terminer Cap Web
+
+Étape 1, prédiction : annonce trois mots . Constaté : la réponse disait encore « deux mots », parce que ce nombre était écrit à la main ; avec `Object.keys(MOTS).length` elle annonce maintenant trois mots.
+
+Étape 3, scores Lighthouse (accessibilité) : 100 avec le label, 93 sans le label. Alerte : « Form elements do not have associated labels ».
