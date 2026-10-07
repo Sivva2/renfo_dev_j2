@@ -116,3 +116,9 @@ button:hover {
 footer {
   font-size: 0.9rem;
 }
+
+@media (max-width: 600px) {
+  button[type="submit"] {
+    width: 100%;
+  }
+}
