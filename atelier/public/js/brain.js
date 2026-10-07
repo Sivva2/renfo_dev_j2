@@ -7,6 +7,7 @@ export const LIMITE = 240;
 const MOTS = {
   boussole: "La boussole indique le nord.",
   refuge: "Un refuge accueille les randonneurs.",
+  sentier: "Un sentier mène au sommet.",
 };
 
 const liste = Object.keys(MOTS)
@@ -16,7 +17,9 @@ const liste = Object.keys(MOTS)
 const REPONSES = {
   salut:
     "Bonjour ! Je suis Cap Web, un assistant à règles. Écrivez « aide » pour voir ce que je sais faire.",
-  aide: `Je connais « salut », « aide », « test », et deux mots à moi : ${liste}.`,
+  aide: `Je connais « salut », « aide », « test », et ${
+    Object.keys(MOTS).length
+  } mots à moi : ${liste}.`,
   test: "Test bien reçu : mes règles fonctionnent.",
   inconnu:
     "Je n’ai pas compris ce message. Écrivez « aide » pour voir ce que je sais faire.",
