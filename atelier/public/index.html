@@ -1,32 +1,48 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cap Web — assistant apprentissage web</title>
-  <link rel="stylesheet" href="./styles.css">
-</head>
-<body>
-  <header>
-    <h1>Cap Web</h1>
-    <p>Assistant fictif pour apprendre le web. Réponse à règles, pas une IA réelle.</p>
-  </header>
-  <main>
-    <section aria-labelledby="titre-chat">
-      <h2 id="titre-chat">Discussion</h2>
-      <ul id="messages" aria-live="polite" aria-label="Messages"></ul>
-      <form id="chat-form">
-        <label for="message">Votre message (<span id="limite">…</span> caractères maximum)</label>
-        <textarea id="message" name="message" rows="3" required></textarea>
-        <button type="submit">Envoyer</button>
-      </form>
-      <button type="button" id="effacer">Effacer la conversation</button>
-      <p id="status" role="status"></p>
-    </section>
-  </main>
-  <footer>
-    <p>Serveur local fourni pour l’atelier. <span id="version">version…</span></p>
-  </footer>
-  <script type="module" src="./js/app.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cap Web — assistant apprentissage web</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Cap Web</h1>
+      <p>
+        Assistant fictif pour apprendre le web. Réponse à règles, pas une IA
+        réelle.
+      </p>
+    </header>
+    <main>
+      <section aria-labelledby="titre-chat">
+        <h2 id="titre-chat">Discussion</h2>
+        <ul id="messages" aria-live="polite" aria-label="Messages"></ul>
+        <form id="chat-form">
+          <label for="message"
+            >Votre message (<span id="limite">…</span> caractères
+            maximum)</label
+          >
+          <textarea
+            id="message"
+            name="message"
+            rows="3"
+            required
+            aria-describedby="compteur"
+          ></textarea>
+          <p id="compteur"></p>
+
+          <button type="submit">Envoyer</button>
+        </form>
+        <button type="button" id="effacer">Effacer la conversation</button>
+        <p id="status" role="status"></p>
+      </section>
+    </main>
+    <footer>
+      <p>
+        Serveur local fourni pour l’atelier. <span id="version">version…</span>
+      </p>
+    </footer>
+    <script type="module" src="./js/app.js"></script>
+  </body>
 </html>
