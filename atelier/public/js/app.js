@@ -34,7 +34,7 @@ function charger() {
   }
 }
 
-formulaire.addEventListener("submit", (event) => {
+formulaire.addEventListener("submit", async (event) => {
   event.preventDefault();
   const controle = validateMessage(champ.value);
   if (!controle.ok) {
@@ -43,11 +43,15 @@ formulaire.addEventListener("submit", (event) => {
     return;
   }
   historique.push({ role: "user", text: controle.value });
-  historique.push({ role: "assistant", text: replyTo(controle.value) });
+  const reponse =
+    controle.value.toLowerCase() === "conseil"
+      ? await demanderConseil()
+      : replyTo(controle.value);
+  historique.push({ role: "assistant", text: reponse });
   sauvegarder();
   renderMessages(historique, liste);
   champ.value = "";
-  majCompteur;
+  majCompteur();
   statut.textContent = "";
   champ.focus();
 });
@@ -70,10 +74,25 @@ function majCompteur() {
   compteur.textContent = `${champ.value.length} / ${LIMITE}`;
 }
 champ.addEventListener("input", majCompteur);
-majCompteur;
+majCompteur();
 
 charger();
 renderMessages(historique, liste);
+
+async function demanderConseil() {
+  try {
+    const response = await fetch("/api/conseil", {
+      headers: { accept: "application/json" },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    const donnees = await response.json();
+    return donnees.conseil;
+  } catch {
+    return "Le serveur ne répond pas : conseil indisponible.";
+  }
+}
 
 async function afficherVersion() {
   try {
