@@ -1,115 +1,95 @@
-# Cap Web · jour 2
+# Cap Web
 
-Ce dossier contient tout le jour 2, sur votre poste : l'atelier (Cap Web et son contrat), les fiches des 4 rounds, le carnet et la [grille d'évaluation](GRILLE.md) du module. Les patchs du round 4 arrivent au début du round 4, dans un second ZIP. Pas de GitHub aujourd'hui.
+Cap Web est un petit assistant de conversation à règles, qui tourne dans le navigateur. Il répond à quelques mots (« salut », « aide », « test » et trois mots à nous), compte les caractères pendant la frappe, et peut demander un conseil au serveur. Il n'utilise aucune IA : chaque réponse vient d'une règle écrite dans `brain.js`.
 
-## Installer (10 min)
+C'est le projet du module « Renforcement Dev Web » du binôme b16 (Kevin Abaskaran, Haidar Esber) : on y pratique HTML, CSS, JavaScript, les tests automatisés, Git et la revue de code.
 
-Ouvrez un terminal PowerShell dans le dossier `cap-web-j2` décompressé, celui qui contient `atelier`, `defis` et `carnet-j2.md`. Vérifiez d'abord votre version de Node : il faut 24.20 ou plus.
+## Installer
+
+Il faut Node 24.20 ou plus, et Git.
 
 ```powershell
 node --version
-```
-
-Installez ensuite les outils de l'atelier. Si PowerShell refuse `npm`, tapez `npm.cmd` à la place de `npm`, pour toutes les commandes de la journée.
-
-```powershell
-cd atelier
+git clone https://github.com/Sivva2/renfo_dev_j2.git
+cd renfo_dev_j2\atelier
 npm ci
 ```
 
-`npm ci` annonce une vulnérabilité : c'est normal, ne lancez pas `npm audit fix`.
+Si PowerShell refuse `npm`, tapez `npm.cmd` à la place. `npm ci` signale une vulnérabilité dans un outil de développement : elle est sans effet sur Cap Web, ne lancez pas `npm audit fix`.
 
-Créez vos réglages, avec les 3 valeurs reçues en privé à J1. Copiez l'exemple, puis ouvrez `cahier-personnel.json` dans l'éditeur : remplacez 240, boussole et refuge (l'exemple) par votre limite et vos deux mots, et enregistrez. Ne créez pas ce fichier avec `>` ni avec `Set-Content` : le contrat refuserait son encodage.
+Les réglages du binôme (la limite de caractères et nos deux mots) sont dans `atelier/cahier-personnel.json`. Ce fichier est déjà dans le dépôt : il n'y a rien à créer.
 
-```powershell
-Copy-Item cahier-personnel.exemple.json cahier-personnel.json
-```
+## Lancer
 
-Lancez Cap Web et ouvrez http://127.0.0.1:3000 dans le navigateur. Ctrl+C l'arrête.
+Dans `atelier` :
 
 ```powershell
 npm start
 ```
 
-Lancez ensuite les tests. Des tests rouges, c'est normal : c'est le round 1.
+Ouvrez http://127.0.0.1:3000 dans le navigateur. Ctrl+C arrête le serveur. Le port 3000 est déjà pris ? Tapez `$env:PORT=3001`, puis `npm start`, et ouvrez http://127.0.0.1:3001.
+
+Essayez « aide » pour voir les mots connus, et « conseil » pour recevoir un conseil du serveur.
+
+## Tester
+
+Dans `atelier` :
 
 ```powershell
+npm run lint
 npm test
 ```
 
-Enfin, remontez dans le dossier `cap-web-j2`, puis sauvegardez le point de départ.
-
-```powershell
-cd ..
-git init -b main
-git add -- atelier carnet-j2.md
-git commit -m "J2 : départ"
-git tag depart
-```
-
-Si Git demande qui vous êtes, donnez votre nom et votre adresse, puis refaites le commit et le tag.
-
-```powershell
-git config user.name "Prénom Nom"
-git config user.email "vous@exemple.fr"
-```
-
-Les tests navigateur sont facultatifs, et demandent environ 150 Mo à télécharger. Pour les lancer, dans `atelier` :
+`npm test` doit afficher `fail 0`. Les tests navigateur sont facultatifs (environ 150 Mo à télécharger) :
 
 ```powershell
 npx playwright install chromium
 npm run test:browser
 ```
 
-Vous avez fini J1 et préférez votre propre code ? Avant de sauvegarder le point de départ, remplacez `atelier/public` par le dossier `public` de votre `cap-web-j1/atelier`.
+## La route `/api/conseil`
 
-## Les 4 rounds
+Le serveur répond à `GET /api/conseil` par un objet JSON, avec un conseil tiré au hasard parmi trois :
 
-Chaque round a un cours court, un défi chronométré et un podium. Les fiches sont dans `defis` : [les tests automatisés](defis/R1-contrat.md) en 45 min, [documenter le projet](defis/R2-ce-que-voit-l-agent.md) en 45 min, [premiers tests unitaires](defis/R3-rouge-d-abord.md) en 60 min, et [la revue de code](defis/R4-abordage.md) en 40 min. Chaque fiche contient tous les paliers du round : avancez à votre rythme. Elle dit aussi le minimum attendu de tous, et ce qui permet d'aller plus loin.
-
-L'agent dsh est facultatif : sans agent, vous travaillez à la main, et ça compte pareil. Le [carnet](carnet-j2.md) commence par votre positionnement, chacun de vous deux, puis se remplit au fil des rounds.
-
-Les points de jeu servent au podium du jour, où seuls les 3 premiers binômes sont affichés : 0 à 10 par round, puis à chaque round +2 au premier binôme qui finit, +1 au deuxième et +2 à la meilleure explication. Ils ne comptent pas dans l'évaluation du module, qui suit la [grille d'évaluation](GRILLE.md).
-
-## Les règles du jour
-
-Après le commit de départ, personne ne modifie `atelier/tests/contrat/`, `atelier/browser/contrat.spec.js` ni `atelier/cahier-personnel.json` : ni vous, ni l'agent.
-
-Aucune clé, aucun mot de passe, aucune donnée personnelle ne va dans un fichier ou dans un chat d'IA. Et aucun changement de l'agent n'est accepté sans un diff relu, que vous savez expliquer.
-
-## Remise, en fin de journée
-
-Remplissez d'abord la partie « Fin de journée » du carnet. Ouvrez ensuite un terminal dans le dossier `cap-web-j2` (celui qui contient `atelier` et `carnet-j2.md`), faites le dernier commit, puis vérifiez que vos commits `fix:`, `docs:`, `test:` et `feat:` sont là.
-
-```powershell
-git add -- atelier carnet-j2.md
-git commit -m "J2 : fin de journée"
-git log --oneline
+```json
+{ "conseil": "Écrivez le test avant le code." }
 ```
 
-Préparez ensuite les 2 fichiers de la remise, en remplaçant `bXX` par votre identifiant de binôme. Déposez-les dans Teams, onglet Fichiers, dossier « Remise J2 ».
+Le statut est 200 et l'en-tête `content-type` vaut `application/json; charset=utf-8`. Dans la page, le message « conseil » appelle cette route avec `fetch`. Si le serveur ne répond pas, Cap Web affiche « Le serveur ne répond pas : conseil indisponible. » au lieu de planter. Le test est dans `atelier/tests/conseil.test.js`.
 
-```powershell
-git bundle create bXX-j2.bundle --all
-Copy-Item carnet-j2.md bXX-carnet-j2.md
-```
+Le serveur sert aussi `GET /version.json`, qui donne la version affichée en pied de page (« version indisponible » en cas d'erreur).
+
+## Ce qui protège Cap Web
+
+- Un message vide, fait d'espaces, ou plus long que la limite est refusé, avec une erreur visible sous le formulaire.
+- Le texte des messages est affiché avec `textContent` : `<b>test</b>` s'affiche tel quel, chevrons compris, sans être interprété comme du HTML.
+- Le serveur ne sert qu'une liste fixe de fichiers, et répond 404 à tout le reste.
+- Sous 600 px de large, le bouton Envoyer prend toute la largeur : la page reste lisible sur téléphone.
 
 ## Arborescence
 
 ```
-atelier/
-├── public/            # ce que le navigateur charge
-│   ├── index.html     # la page
-│   ├── styles.css     # le style (dont la version mobile)
-│   └── js/
-│       ├── brain.js   # les règles de réponse, sans toucher à la page
-│       ├── view.js    # l'affichage des messages
-│       └── app.js     # le câblage : formulaire, compteur, appels au serveur
-├── server/            # le serveur Node
-│   ├── app.js         # routes : fichiers statiques, /version.json, /api/conseil
-│   └── start.js       # démarrage
-├── tests/             # les tests (contrat, harnais, serveur, synonyme, conseil)
-├── scripts/           # outils de vérification et de construction
-├── README.md
-└── SPEC.md
+.
+├── atelier/                 # le projet Cap Web
+│   ├── public/              # ce que le navigateur charge
+│   │   ├── index.html       # la page : formulaire, compteur, liste des messages
+│   │   ├── styles.css       # le style, dont la version mobile
+│   │   └── js/
+│   │       ├── brain.js     # les règles de réponse, fonctions pures, sans toucher à la page
+│   │       ├── view.js      # l'affichage des messages, en texte seulement
+│   │       └── app.js       # le câblage : formulaire, compteur, historique, appels au serveur
+│   ├── server/
+│   │   ├── app.js           # les routes : fichiers statiques, /version.json, /api/conseil
+│   │   └── start.js         # le démarrage du serveur sur 127.0.0.1
+│   ├── tests/               # les tests node:test (contrat, serveur, conseil, synonyme, harnais)
+│   ├── browser/             # les tests navigateur Playwright (facultatifs)
+│   ├── scripts/             # les outils de vérification et de construction
+│   ├── cahier-personnel.json  # nos réglages : limite et deux mots
+│   ├── package.json         # les scripts npm et les outils de développement
+│   ├── README.md            # le résumé des trois modules de public/js
+│   └── SPEC.md              # la spécification de Cap Web
+├── defis/                   # les fiches des 4 rounds du jour 2
+├── carnet-j2.md             # notre carnet de bord, J2 et J3
+├── GRILLE.md                # la grille d'évaluation du module
+└── README.md                # ce fichier
 ```
