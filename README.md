@@ -93,3 +93,23 @@ Préparez ensuite les 2 fichiers de la remise, en remplaçant `bXX` par votre id
 git bundle create bXX-j2.bundle --all
 Copy-Item carnet-j2.md bXX-carnet-j2.md
 ```
+
+## Arborescence
+
+```
+atelier/
+├── public/            # ce que le navigateur charge
+│   ├── index.html     # la page
+│   ├── styles.css     # le style (dont la version mobile)
+│   └── js/
+│       ├── brain.js   # les règles de réponse, sans toucher à la page
+│       ├── view.js    # l'affichage des messages
+│       └── app.js     # le câblage : formulaire, compteur, appels au serveur
+├── server/            # le serveur Node
+│   ├── app.js         # routes : fichiers statiques, /version.json, /api/conseil
+│   └── start.js       # démarrage
+├── tests/             # les tests (contrat, harnais, serveur, synonyme, conseil)
+├── scripts/           # outils de vérification et de construction
+├── README.md
+└── SPEC.md
+```
