@@ -122,3 +122,9 @@ footer {
     width: 100%;
   }
 }
+
+/* Le compteur prévient à 90 % de la limite. */
+#compteur.alerte {
+  color: #b00020;
+  font-weight: 700;
+}

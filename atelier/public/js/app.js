@@ -82,6 +82,7 @@ limiteElt.textContent = String(LIMITE);
 
 function majCompteur() {
   compteur.textContent = `${champ.value.length} / ${LIMITE}`;
+  compteur.classList.toggle("alerte", champ.value.length >= LIMITE * 0.9);
 }
 champ.addEventListener("input", majCompteur);
 majCompteur();
