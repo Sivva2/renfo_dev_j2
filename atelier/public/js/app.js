@@ -67,7 +67,8 @@ effacer.addEventListener("click", () => {
 });
 
 // La limite vient de brain.js : un seul endroit à modifier.
-champ.maxLength = LIMITE;
+// Pas de maxLength : un message trop long doit être refusé par validateMessage,
+// avec une erreur visible, au lieu d'être coupé sans rien dire.
 limiteElt.textContent = String(LIMITE);
 
 function majCompteur() {
