@@ -1,5 +1,5 @@
 // Cap Web — câblage : lire le formulaire, mettre à jour l'historique, demander l'affichage.
-import { validateMessage, replyTo, LIMITE } from "./brain.js";
+import { validateMessage, replyTo, estMessage, LIMITE } from "./brain.js";
 import { renderMessages } from "./view.js";
 
 const formulaire = document.querySelector("#chat-form");
@@ -26,7 +26,7 @@ function charger() {
   try {
     const donnees = JSON.parse(brut);
     if (Array.isArray(donnees)) {
-      historique.push(...donnees);
+      historique.push(...donnees.filter(estMessage));
     }
   } catch {
     statut.textContent =

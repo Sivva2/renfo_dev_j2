@@ -45,6 +45,16 @@ export function validateMessage(raw) {
   return { ok: true, value };
 }
 
+// Un message de l'historique : un objet avec un rôle connu et un texte.
+export function estMessage(m) {
+  return (
+    typeof m === "object" &&
+    m !== null &&
+    (m.role === "user" || m.role === "assistant") &&
+    typeof m.text === "string"
+  );
+}
+
 export function replyTo(message) {
   const texte = String(message).trim().toLowerCase();
   if (texte === "salut" || texte === "bonjour") {
