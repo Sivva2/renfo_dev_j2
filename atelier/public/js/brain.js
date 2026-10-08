@@ -1,7 +1,7 @@
 // Cap Web — cerveau à règles. Fonctions pures : aucun accès à la page.
 
-// Vos réglages : recopiez ici la limite et les deux mots de votre cahier-personnel.json.
-// Les valeurs écrites ci-dessous sont celles de l'exemple (240, boussole, refuge), pas les vôtres.
+// Nos réglages, recopiés de cahier-personnel.json : la limite et nos deux mots,
+// plus un troisième mot ajouté à J3.
 export const LIMITE = 240;
 
 const MOTS = {
@@ -10,9 +10,12 @@ const MOTS = {
   sentier: "Un sentier mène au sommet.",
 };
 
-const liste = Object.keys(MOTS)
-  .map((mot) => `« ${mot} »`)
-  .join(" et ");
+// « a », « b » et « c » : des virgules, puis « et » avant le dernier mot.
+const guillemets = Object.keys(MOTS).map((mot) => `« ${mot} »`);
+const liste =
+  guillemets.length > 1
+    ? `${guillemets.slice(0, -1).join(", ")} et ${guillemets.at(-1)}`
+    : guillemets.join("");
 
 const REPONSES = {
   salut:
