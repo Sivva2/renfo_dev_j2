@@ -86,3 +86,9 @@ Membre 2 : à l'aise sur le sujet
 Étape 1, prédiction : annonce trois mots . Constaté : la réponse disait encore « deux mots », parce que ce nombre était écrit à la main ; avec `Object.keys(MOTS).length` elle annonce maintenant trois mots.
 
 Étape 3, scores Lighthouse (accessibilité) : 100 avec le label, 93 sans le label. Alerte : « Form elements do not have associated labels ».
+
+Étapes 9 et 10 : deux branches, `docs/arborescence` (PR #1) et `feat/couleur` (PR #2), relues puis fusionnées.
+
+Étape 11, les quatre attaques : serveur arrêté puis « conseil », le message « Le serveur ne répond pas : conseil indisponible. » s'affiche. Message trop long : il était coupé sans rien dire par `maxLength`, corrigé (`fix: un message trop long est refusé avec une erreur visible`). `<b>test</b>` s'affiche tel quel. À 375 px, tout reste lisible.
+
+Bonus : étapes 13 à 18 faites (historique abîmé, test de `estMessage`, Entrée envoie, compteur en alerte à 90 %, CI, version 1.0.0).
