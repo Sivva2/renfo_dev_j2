@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createApp } from './app.js';
+import paquet from '../package.json' with { type: 'json' };
 
 // Dossier public servi : fixe, à côté du serveur.
 const ici = path.dirname(fileURLToPath(import.meta.url));
@@ -12,7 +13,7 @@ const nombre = Number.parseInt(brut, 10);
 const port = Number.isInteger(nombre) && nombre >= 1 && nombre <= 65535 ? nombre : 3000;
 const host = '127.0.0.1';
 
-const app = createApp({ publicDir, version: 'dev' });
+const app = createApp({ publicDir, version: paquet.version });
 const serveur = app.listen(port, host, () => {
   console.log(`Cap Web prêt sur http://${host}:${port}/`);
 });
